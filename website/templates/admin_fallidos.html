@@ -1,0 +1,128 @@
+{% extends "base.html"%} <!-- Se extiende de base.html -->
+{% block title %}Reportes - Ingresos Fallidos{% endblock %} <!-- El título de la pagina -->
+
+{% block navResponsive %}   <!-- Menú responsive -->
+<div class="collapse collapse.show fondo d-lg-none" id="sidebar">
+    <div class="collapse-header">
+        <a href="/">
+            <img src="{{ url_for('static', filename='images/logo-ULACIT_blanco.png')}}" width="200" height="70" alt="Logo ulacit">
+        </a>
+    </div>
+    <div class="collapse-body">
+        <ul class="nav flex-column">
+            <h3 class="text-uppercase mt-3 text-light">Registrar</h3>
+            <li class="nav-item">
+                <a class="nav-link active text-light" href="/registrar-usuarios">Usuarios</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-light" href="/registrar-parqueos">Parqueos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-light" href="/registrar-vehiculos">Vehículos</a>
+            </li>
+        </ul>
+        <ul class="nav flex-column">
+            <h3 class="text-uppercase mt-5 text-light">Reportes</h3>
+            <li class="nav-item">
+                <a class="nav-link active text-light" href="/reporte-ocupacion">Reportes de ocupación</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-light" href="/ingresos-fallidos">Reportes de ingresos fallidos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-light" href="/vehiculos-aprobacion">Reportes de aprobación</a>
+            </li>
+            <li class="nav-item my-2">
+                <a class="nav-link text-light d-flex" href="/logout">
+                    <span class="material-icons">logout</span>
+                    <span class="mx-2">Cerrar Sesión</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+{% endblock %}
+
+{% block nav %} <!-- Menú  -->
+<div class="fondo vh-100">
+    <div class="pt-3">
+        <div class="sidebar-imagen">
+            <a href="/registrar-parqueos">
+                <img src="{{ url_for('static', filename='images/logo-ULACIT_blanco.png')}}" width="200" height="70" alt="Logo ulacit">
+            </a>
+        </div>
+        <ul class="nav flex-column">
+            <h3 class="text-uppercase mt-3 text-light">Registrar</h3>
+            <li class="nav-item">
+                <a class="nav-link active text-light" href="/registrar-usuarios">Usuarios</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-light" href="/registrar-parqueos">Parqueos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-light" href="/registrar-vehiculos">Vehículos</a>
+            </li>
+        </ul>
+        <ul class="nav flex-column">
+            <h3 class="text-uppercase mt-5 text-light">Reportes</h3>
+            <li class="nav-item">
+                <a class="nav-link active text-light" href="/reporte-ocupacion">Reportes de ocupación</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-light" href="/ingresos-fallidos">Reportes de ingresos fallidos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-light" href="/vehiculos-aprobacion">Reportes de aprobación</a>
+            </li>
+        </ul>
+        <div class="fixed-bottom m-3">
+            <a class="nav-link text-light d-flex" href="/logout">
+                <span class="material-icons">logout</span>
+                <span class="mx-2">Cerrar Sesión</span>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block reporte %} <!-- Nombre del tipo de registro -->
+Reportes - Ingresos Fallidos
+{% endblock %}
+{% block contenido %} <!-- Ingreso de vehículos -->
+<form class="container m-2 p-0 mt-6" method="POST">
+    <div class="row w-30">
+        <h5 class="p-2 col-2">Filtrar por fecha</h5>
+        <div class="w-25">
+            <input id="filtrarFecha" name="filtrarFecha" type="date" class="p-2 col form-control form-control-sm" min="1924-01-01" value={{fecha}}>
+        </div>
+        <div class="col">
+            <button id="btnFiltrarFecha" name="btnFiltrarFecha" class="btn btn-primary btn-md btn-block" type="submit">Filtrar</button>
+        </div>
+    </div>
+</form>
+<table class="table table-striped" id="reporteGuarda">
+    <thead>
+      <tr>
+        <th scope="col">N. Placa de Vehículo</th>
+        <th scope="col">Fecha y Hora</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% if existe %}
+            {% for placa, fecha in reporteFechas %}
+                <tr>
+                    <td>{{placa}}</th>
+                    <td>{{fecha}}</td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            {% for r in reporte %}
+                <tr>
+                    <td>{{r.id_placa}}</th>
+                    <td>{{r.fecha}}</td>
+                </tr>
+            {% endfor %}
+        {% endif %}
+    </tbody>
+  </table>
+{% endblock %}

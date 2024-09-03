@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+{% block title %}Reporte de parqueo{% endblock %} <!-- El título de la pagina -->
+
+{% block navResponsive %} <!-- Menú responsive -->
+<div class="collapse collapse.show fondo d-lg-none" id="sidebar">
+    <div class="collapse-header">
+        <a href="/">
+            <img src="{{ url_for('static', filename='images/logo-ULACIT_blanco.png')}}" width="200" height="70" alt="Logo ulacit">
+        </a>
+    </div>
+    <div class="collapse-body">
+        <ul class="nav flex-column">
+            <h3 class="text-uppercase mt-3 text-light">Ingreso/Egreso</h3>
+            <li class="nav-item">
+                <a class="nav-link active text-light" href="/ingreso-al-parqueo/{{nombre}}&{{id}}">Ingresos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-light" href="/egreso-parqueo/{{nombre}}&{{id}}">Egresos</a>
+            </li>
+        </ul>
+        <ul class="nav flex-column">
+            <h3 class="text-uppercase mt-5 text-light">Reportes</h3>
+            <li class="nav-item">
+                <a class="nav-link text-light" href="/reporte-ocupacion//{{nombre}}&{{id}}">Reportes de ocupación</a>
+            </li>
+            <li class="nav-item my-2">
+                <a class="nav-link text-light d-flex" href="/logout">
+                    <span class="material-icons">logout</span>
+                    <span class="mx-2">Cerrar Sesión</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+{% endblock %}
+
+{% block nav %} <!-- Menú -->
+<div class="fondo vh-100">
+    <div class="pt-3">
+        <div class="sidebar-imagen">
+            <a href="registrar-vehiculos">
+                <img src="{{ url_for('static', filename='images/logo-ULACIT_blanco.png')}}" width="200" height="70" alt="logo ulacit">
+            </a>
+        </div>
+        <ul class="nav flex-column">
+            <h3 class="text-uppercase mt-3 text-light">Ingreso/Egreso</h3>
+            <li class="nav-item">
+                <a class="nav-link active text-light" href="/ingreso-al-parqueo/{{nombre}}&{{id}}">Ingresos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-light" href="/egreso-parqueo/{{nombre}}&{{id}}">Egresos</a>
+            </li>
+        </ul>
+        <ul class="nav flex-column">
+            <h3 class="text-uppercase mt-5 text-light">Reportes</h3>
+            <li class="nav-item">
+                <a class="nav-link active text-light" href="/reporte-ocupacion/{{nombre}}&{{id}}">Reportes de ocupación</a>
+            </li>
+        </ul>
+        <div class="fixed-bottom m-3">
+            <a class="nav-link text-light d-flex" href="/logout">
+                <span class="material-icons">logout</span>
+                <span class="mx-2">Cerrar Sesión</span>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block reporte %} <!-- Nombre del parqueo  -->
+Reporte de ocupación del {{nombre}}
+{% endblock %}
+
+{% block contenido %} <!-- Ingreso de vehículos -->
+{% set totalOcupados  = namespace(value=0) %}
+{% set totalDisponibles  = namespace(value=0) %}
+<table class="table table-striped" id="reporteGuarda">
+    <thead>
+      <tr>
+        <th scope="col">Tipo de Espacio</th>
+        <th scope="col">Espacios Ocupados</th>
+        <th scope="col">Espacios Disponibles</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for r in reporte %}
+            {% if r.tipo == "Carro" and r.espacio == True %}
+                <tr>
+                    <th scope="row">Ley 7600</th>
+                    <td>{{r.ocupados}}</td>
+                    <td>{{r.capacidad_ley - r.ocupados}}</td>
+                </tr>
+
+            {% elif r.tipo == "Carro" and r.espacio == False %}
+                <tr>
+                    <th scope="row">Regulares</th>
+                    <td>{{r.ocupados}}</td>
+                    <td>{{r.capacidad_regulares - r.ocupados}}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <th scope="row">Motos</th>
+                    <td>{{r.ocupados}}</td>
+                    <td>{{r.capacidad_motos- r.ocupados}}</td>
+                </tr>
+            {% endif %}
+            {% set totalOcupados.value = totalOcupados.value + r.ocupados%}
+      {% endfor %}
+      {% set totalDisponibles.value = parqueo.capacidad_regulares +  parqueo.capacidad_motos +  parqueo.capacidad_ley%}
+      {% set totalDisponibles.value = totalDisponibles.value - totalOcupados.value %}
+    </tbody>
+  </table>
+  <div class="mt-4 pt-4">
+    <h3>Total</h3>
+    <table class="table table-striped" id="reporteGuarda">
+      <thead>
+        <tr>
+          <th scope="col">Ocupados</th>
+          <th scope="col">Disponibles</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr>
+              <td>{{ totalOcupados.value }}</td>
+              <td>{{ totalDisponibles.value }}</td>
+          </tr>
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

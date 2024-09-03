@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% block title %}Revisar Estatus del Vehículo{% endblock %}
+{% block navResponsive %} <!-- Menú responsive -->
+<div class="collapse collapse.show fondo d-lg-none" id="sidebar">
+    <div class="collapse-header">
+        <a href="/">
+            <img src="{{ url_for('static', filename='images/logo-ULACIT_blanco.png')}}" width="200" height="70" alt="Logo ulacit">
+        </a>
+    </div>
+    <div class="collapse-body">
+        <ul class="nav flex-column">
+            <h3 class="text-uppercase mt-3 text-light">Menú</h3>
+            <li class="nav-item">
+                <a class="nav-link active text-light" href="{{ url_for('auth.dashboard') }}">Inicio</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active text-light" href="{{ url_for('auth.vehiculo_estatus') }}">Revisar Estatus del Vehículo</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active text-light" href="{{ url_for('auth.usoParqueo') }}">Reporte de uso</a>
+            </li>
+        </ul>
+        <ul class="nav flex-column">
+            <li class="nav-item my-2">
+                <a class="nav-link text-light d-flex" href="/logout">
+                    <span class="material-icons">logout</span>
+                    <span class="mx-2">Cerrar Sesión</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+{% endblock %}
+
+{% block nav %} <!-- Menú -->
+<div class="fondo vh-100">
+    <div class="pt-3">
+        <div class="sidebar-imagen">
+            <a href="registrar-vehiculos">
+                <img src="{{ url_for('static', filename='images/logo-ULACIT_blanco.png')}}" width="200" height="70" alt="logo ulacit">
+            </a>
+        </div>
+        <ul class="nav flex-column">
+            <h3 class="text-uppercase mt-3 text-light">Menú</h3>
+            <li class="nav-item">
+                <a class="nav-link active text-light" href="{{ url_for('auth.dashboard') }}">Inicio</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active text-light" href="{{ url_for('auth.vehiculo_estatus') }}">Revisar Estatus del Vehículo</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active text-light" href="{{ url_for('auth.usoParqueo') }}">Reporte de uso</a>
+            </li>
+        </ul>
+        <div class="fixed-bottom m-3">
+            <a class="nav-link text-light d-flex" href="/logout">
+                <span class="material-icons">logout</span>
+                <span class="mx-2">Cerrar Sesión</span>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block reporte %} <!-- Nombre del estudiante  -->
+Estatus de tus Vehículos
+{% endblock %}
+{% block contenido %}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Marca</th>
+            <th>Tipo</th>
+            <th>Color</th>
+            <th>Placa</th>
+            <th>Espacio Ley</th>
+            <th>Estatus</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for vehiculo in vehiculos %}
+        <tr>
+            <td>{{ vehiculo.marca }}</td>
+            <td>{{ vehiculo.tipo }}</td>
+            <td>{{ vehiculo.color }}</td>
+            <td>{{ vehiculo.placa }}</td>
+            <td>{{ 'Sí' if vehiculo.espacio else 'No' }}</td>
+            <td>Registrado</td>
+        </tr>
+        {% endfor %}
+        {% for v in ingresosFallidos%}
+        <tr>
+            <td>-</td>
+            <td>{{ v.tipo }}</td>
+            <td>-</td>
+            <td>{{ v.id_placa }}</td>
+            <td>{{ 'Sí' if v.espacio else 'No' }}</td>
+            <td>No está registrado</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

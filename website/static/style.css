@@ -1,0 +1,79 @@
+html, body{
+    font-family: 'Moulpali', 'Sans';
+    height: 100%;
+
+}
+
+/* Fondos */
+nav, .fondo, body{
+    background-color: #704F8C;
+}
+.fondoLogin{
+    background-image: url(./Images/patron-fondo.png);
+    background-position: 250px 370px;
+    background-size: 512px 593px;
+    background-repeat: no-repeat;
+}
+
+.fondoDB{
+    background-image: url(./Images/patron-fondo.png);
+    background-position: right 470px;
+    background-size: 512px 593px;
+    background-repeat: no-repeat;
+}
+
+.fondoParqueo{
+    background-image: url(./Images/patron-fondo.png), url(./Images/patron-fondo.png);
+    background-position: -70px -170px, 750px 420px;
+    background-size: 512px 593px;
+    background-repeat: no-repeat;
+}
+
+
+/* Botones */
+.btn-primary {
+    background-color: #5C2B86 !important;
+    border-color: #5C2B86 !important;
+}
+
+.btn-primary:hover {
+    background-color: #704F8C !important;
+    border-color: #704F8C !important;
+}
+
+/* Margen top */
+.mt-6{
+    margin-top: 150px;
+}
+
+/* Cambiar el color del checkbox y títulos*/
+input[type=checkbox]{
+    accent-color: #704F8C;
+}
+
+h3, h5{
+    color: #5C2B86 !important;
+}
+
+thead th{
+    background-color: #5C2B86 !important;
+    color: whitesmoke !important;
+}
+
+.table-striped>tbody>tr:nth-child(odd)>td, 
+.table-striped>tbody>tr:nth-child(odd)>th {
+    background-color: #f1dfff;
+}
+
+/* Tarjetas de parqueo */
+
+.tarjeta:hover{
+    cursor:pointer;
+}
+
+.img-info{
+    max-height: 250px;
+    min-height: 150px;
+    object-fit: cover;
+}
+

@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% block title %}Personal Administrativo{% endblock %}
+
+{% block navResponsive %} <!-- Menú responsive -->
+<div class="collapse collapse.show fondo d-lg-none" id="sidebar">
+    <div class="collapse-header">
+        <a href="/">
+            <img src="{{ url_for('static', filename='images/logo-ULACIT_blanco.png')}}" width="200" height="70" alt="Logo ulacit">
+        </a>
+    </div>
+    <div class="collapse-body">
+        <ul class="nav flex-column">
+            <h3 class="text-uppercase mt-3 text-light">Menú</h3>
+            <li class="nav-item">
+                <a class="nav-link active text-light" href="{{ url_for('auth.dashboard') }}">Inicio</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active text-light" href="{{ url_for('auth.vehiculo_estatus') }}">Revisar Estatus del Vehículo</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active text-light" href="{{ url_for('auth.usoParqueo') }}">Reporte de uso</a>
+            </li>
+        </ul>
+        <ul class="nav flex-column">
+            <li class="nav-item my-2">
+                <a class="nav-link text-light d-flex" href="/logout">
+                    <span class="material-icons">logout</span>
+                    <span class="mx-2">Cerrar Sesión</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+{% endblock %}
+
+{% block nav %} <!-- Menú -->
+<div class="fondo vh-100">
+    <div class="pt-3">
+        <div class="sidebar-imagen">
+            <a href="registrar-vehiculos">
+                <img src="{{ url_for('static', filename='images/logo-ULACIT_blanco.png')}}" width="200" height="70" alt="logo ulacit">
+            </a>
+        </div>
+        <ul class="nav flex-column">
+            <h3 class="text-uppercase mt-3 text-light">Menú</h3>
+            <li class="nav-item">
+                <a class="nav-link active text-light" href="{{ url_for('auth.dashboard') }}">Inicio</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active text-light" href="{{ url_for('auth.vehiculo_estatus') }}">Revisar Estatus del Vehículo</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active text-light" href="{{ url_for('auth.usoParqueo') }}">Reporte de uso</a>
+            </li>
+        </ul>
+        <div class="fixed-bottom m-3">
+            <a class="nav-link text-light d-flex" href="/logout">
+                <span class="material-icons">logout</span>
+                <span class="mx-2">Cerrar Sesión</span>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block reporte %} <!-- Nombre del personal  -->
+<h3>Bienvenido, {{ current_user.nombre }}</h3>
+<p>Aquí puedes revisar el estatus de tus vehículos y más.</p>
+
+<div class="container mt-4">
+    <div class="card">
+        <img  src="{{ url_for('static', filename='images/Imagen-parqueos.jpg')}}" class="card-img-top img-info" alt="Registrar Vehículo">
+        <div class="card-body">
+            <h5 class="card-title">¿Necesitas registrar tu vehículo? Sigue estos pasos:</h5>
+            <ol class="list-unstyled">
+                <li>
+                    <strong>Visita el estacionamiento 2 en la Universidad</strong><br>
+                    Ubicación: Contiguo al edificio de ULACIT<br>
+                    Horario: 6:30 a. m. a 10:00 p. m.
+                </li>
+                <li>
+                    O para más información: <a href="https://centrodeservicios.ulacit.ac.cr/portal/es/home" target="_blank" >Centro de Servicios de ULACIT</a> o llame al teléfono 2523-4000.
+                </li>
+                <li>
+                    <strong>Lleva los siguientes documentos:</strong><br>
+                    <ul>
+                        <li>Documento de identidad oficial.</li>
+                        <li>Información del vehículo (número de placa, marca, color).</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Completa el proceso con el personal autorizado.</strong><br>
+                    El personal de la universidad se encargará de ingresar la información de tu vehículo en el sistema y te notificará cuando esté registrado.
+                </li>
+            </ol>
+            <p><strong>Nota:</strong> Podrás registrar un máximo de dos vehículos.</p>
+            <a href="https://www.ulacit.ac.cr/servicios-de-estacionamiento/" target="_blank"  class="btn btn-primary">Más información</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block contenido %} <!-- Lo que verá el personal en el dashboard -->
+
+{% endblock %}
